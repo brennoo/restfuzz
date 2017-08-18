@@ -84,5 +84,6 @@ def main():
             print "Known tb:", l[1]
         uniq_tb.add(l[0])
 
+
 if __name__ == "__main__":
     main()

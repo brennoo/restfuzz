@@ -18,6 +18,7 @@ import string
 import struct
 import random
 import uuid
+from blns import BLNS
 
 
 class InputGenerator(object):
@@ -179,11 +180,16 @@ class InputGenerator(object):
     def gen_ascii(self):
         return ''.join(random.choice(string.letters + string.digits) for _ in range(random.randint(1, 512))),
 
+    def gen_naughty(self):
+        return random.sample(BLNS, 1)
+
     def gen_string(self):
         if self.once_every(10):
             return self.gen_unicode()
         if self.once_every(5):
             return self.gen_ascii()
+        if self.once_every(3):
+            return self.gen_naughty()
         return random.choice((
             "JaVaScRiPt:alert('XSS')",
             'alert(document.cookie)',
