@@ -18,6 +18,7 @@ import yaml
 import os
 import json
 import itertools # noqa
+import urllib
 
 from restfuzz.utils import debug
 from restfuzz.event import Event
@@ -85,6 +86,9 @@ class Method:
                     else:
                         json_input = json.dumps(params)
                 params['url_input'] = url_input
+            elif "url_encoded" in params:
+                content_type = 'application/x-www-form-urlencoded'
+                json_input = urllib.urlencode(params["url_encoded"])
             else:
                 json_input = json.dumps(params)
 

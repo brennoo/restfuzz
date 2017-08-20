@@ -25,6 +25,15 @@ class Api:
     def set_header(self, k, v):
         self.headers[k] = v
 
+    #TODO: review header/token and set_header/add_header
+    def add_header(self, line):
+        if ':' not in line:
+            return
+        name, value = line.split(':', 1)
+        name = name.strip()
+        value = value.strip()
+        self.headers[name] = value
+
     def request(self, http_method, endpoint, data, content_type = 'application/json'):
         self.headers['Content-Type'] = content_type
         return requests.request(http_method, url=endpoint, headers=self.headers, data=data)

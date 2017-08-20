@@ -30,6 +30,7 @@ def do_restfuzz():
     parser = argparse.ArgumentParser()
     parser.add_argument("--api", nargs='+', metavar="file_or_dir", help="Api description", required=True)
     parser.add_argument("--token", help="X-Auth-Token to use")
+    parser.add_argument("--header", help="HTTP headers")
     parser.add_argument("--tenant_id", nargs='+', default=[], help="Adds tenant ids")
     parser.add_argument("--db", help="File path to store event in")
     parser.add_argument("--health", help="Python module path to call after each call")
@@ -53,6 +54,9 @@ def do_restfuzz():
     api = Api()
     if args.token:
         api.set_header("X-Auth-Token", args.token)
+
+    if args.header: #TODO: review header/token and set_header/add_header
+        api.add_header(args.header)
 
     fuzzer = ApiRandomCaller(api, methods, args.seed)
     if args.db:

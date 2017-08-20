@@ -107,6 +107,9 @@ class InputGenerator(object):
     def gen_domain(self):
         return "%s." % self.generate_input("hostname")
 
+    def gen_url(self):
+        return "http://%s.com" % self.generate_input("hostname")
+
     def gen_byte(self):
         return int(random.random() * 2 ** 8)
 
@@ -178,10 +181,10 @@ class InputGenerator(object):
         return unicode("".join(chunk), errors='ignore')
 
     def gen_ascii(self):
-        return ''.join(random.choice(string.letters + string.digits) for _ in range(random.randint(1, 512))),
+        return "".join(random.choice(string.letters + string.digits) for _ in range(random.randint(1, 512)))
 
     def gen_naughty(self):
-        return random.sample(BLNS, 1)
+        return "".join(random.sample(BLNS, 1))
 
     def gen_string(self):
         if self.once_every(10):
